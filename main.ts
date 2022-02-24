@@ -1,40 +1,24 @@
 let moistureReading = 0
+let buttontouch = 0
 basic.showIcon(IconNames.Heart)
+serial.setBaudRate(BaudRate.BaudRate115200)
+serial.writeString("ready")
 basic.forever(function () {
-    moistureReading = Math.map(pins.digitalReadPin(DigitalPin.P1), 0, 750, 0, 3)
-    basic.pause(100)
-    if (1 == pins.digitalReadPin(DigitalPin.P2)) {
-        if (moistureReading <= 1) {
-            basic.showLeds(`
-                . # . # .
-                . # . # .
-                . . . . .
-                # # # # #
-                . . . . .
-                `)
-        } else if (moistureReading > 1 && moistureReading <= 2) {
-            basic.showLeds(`
-                . # . # .
-                . # . # .
-                # . . . #
-                . # # # .
-                . . . . .
-                `)
-        } else {
-            basic.showLeds(`
-                . # . # .
-                . # . # .
-                # . . . #
-                # . . . #
-                . # # # .
-                `)
+    buttontouch = pins.digitalReadPin(DigitalPin.P0)
+    moistureReading = pins.analogReadPin(AnalogPin.P1)
+    if (buttontouch == 0) {
+        serial.writeValue("value", moistureReading)
+        basic.pause(500)
+        if (moistureReading <= 50) {
+            music.playTone(262, music.beat(BeatFraction.Double))
         }
-        basic.showIcon(IconNames.Happy)
-        pins.digitalWritePin(DigitalPin.P8, 1)
+        if (moistureReading > 50) {
+            music.playMelody("G A E G G - - - ", 120)
+        }
     } else {
-        basic.showIcon(IconNames.SmallSquare)
-        pins.digitalWritePin(DigitalPin.P8, 0)
+        serial.writeString("not.  ")
     }
+    basic.pause(100)
 })
 basic.forever(function () {
 	

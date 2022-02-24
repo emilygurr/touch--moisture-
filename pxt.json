@@ -6,7 +6,9 @@
         "radio": "*",
         "microphone": "*",
         "MakerBit-Touch": "github:1010technologies/pxt-makerbit-touch#v1.2.16",
-        "touchbit": "github:pimoroni/pxt-touchbit#v0.0.1"
+        "touchbit": "github:pimoroni/pxt-touchbit#v0.0.1",
+        "MakerBit-MP3": "github:1010technologies/pxt-makerbit-mp3#v1.0.10",
+        "dfplayer": "github:lioujj/pxt-mp3#38a9b70595947ecbc0f3216e5fb746af10371bbf"
     },
     "files": [
         "main.blocks",
